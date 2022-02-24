@@ -11,6 +11,10 @@ vi /etc/fstab
 ```
 
 ```
+grep -o 'keyword' file_name | wc -l
+```
+
+```
 while [ ! -d /tomcat/webapps/ROOT/mail ]; do sleep 1; done; rm -rf /tomcat/webapps/ROOT/images; ln -s /share/images /tomcat/webapps/ROOT/images
 ```
 
