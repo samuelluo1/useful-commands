@@ -15,7 +15,7 @@ grep -o 'keyword' file_name | wc -l
 ```
 
 ```
-while [ ! -d /tomcat/webapps/ROOT/mail ]; do sleep 1; done; rm -rf /tomcat/webapps/ROOT/images; ln -s /share/images /tomcat/webapps/ROOT/images
+while [ ! -d /tomcat/webapps/ROOT/mail ]; do sleep 1; done; ln -s /share/images /tomcat/webapps/ROOT/images
 ```
 
 ### redis-cli
@@ -33,7 +33,13 @@ redis-cli -h 10.8.96.8 -p 6379 KEYS "tomcat-cache-*" | xargs redis-cli -h 10.8.9
 
 ### docker
 ```
-docker kill $(docker ps -q | grep tomcat)
+docker run -p 8080:8080 $(docker images -q | awk 'NR==1')
+```
+```
+docker exec -u root -it $(docker ps -q | awk 'NR==1') /bin/bash
+```
+```
+docker stop $(docker ps -q | awk 'NR==1')
 ```
 
 ### kubectl
