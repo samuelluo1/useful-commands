@@ -3,11 +3,7 @@
 ### shell
 
 ```
-tail -f example.log
-```
-
-```
-vi /etc/fstab
+kill $(lsof -t -i:8080)
 ```
 
 ```
@@ -20,15 +16,15 @@ while [ ! -d /tomcat/webapps/ROOT/mail ]; do sleep 1; done; ln -s /share/images 
 
 ### redis-cli
 ```
-redis-cli -h redis_domain keys key_prefix\* | sed 's/^/get /' | xargs -i sh -c 'echo {}; redis-cli -h redis_domain {}; echo'
+redis-cli -h redis_domain keys key_prefix* | sed 's/^/get /' | xargs -i sh -c 'echo {}; redis-cli -h redis_domain {}; echo'
 ```
 
 ```
-redis-cli -h r-uf6pujrjvtzyceqlsj.redis.rds.aliyuncs.com scan 0 match tomcat-cache-\* count 10000 | sed 's/^/get /' | xargs -i sh -c 'echo {}; redis-cli -h r-uf6pujrjvtzyceqlsj.redis.rds.aliyuncs.com {}; echo'
+redis-cli -h redis_domain SCAN cursor match key_prefix* count 10000 | sed 's/^/get /' | xargs -i sh -c 'echo {}; redis-cli -h redis_domain {}; echo'
 ```
 
 ```
-redis-cli -h 10.8.96.8 -p 6379 KEYS "tomcat-cache-*" | xargs redis-cli -h 10.8.96.8 -p 6379 DEL
+redis-cli -h 10.8.96.8 -p 6379 KEYS "key_prefix*" | xargs redis-cli -h 10.8.96.8 -p 6379 DEL
 ```
 
 ### docker
