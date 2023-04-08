@@ -9,6 +9,9 @@ kill $(lsof -t -i:8080)
 ```
 grep -o 'keyword' file_name | wc -l
 ```
+```
+grep -C 10 'keyword' file_name
+```
 
 ```
 while [ ! -d /tomcat/webapps/ROOT/mail ]; do sleep 1; done; ln -s /share/images /tomcat/webapps/ROOT/images
